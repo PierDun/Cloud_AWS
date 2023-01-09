@@ -37,19 +37,16 @@ public class OrderService {
                 Role.valueOf(dto.getCustomer().getRole())
         );
 
-        Weapon weapon = new Weapon(
-                dto.getWeapon().getId(),
-                new Corporation(
-                        dto.getWeapon().getCreator().getId(),
-                        dto.getWeapon().getCreator().getName(),
-                        new User(
-                                dto.getWeapon().getCreator().getOwner().getId(),
-                                dto.getWeapon().getCreator().getOwner().getLogin(),
-                                dto.getWeapon().getCreator().getOwner().getPassword(),
-                                Role.valueOf(dto.getWeapon().getCreator().getOwner().getRole())
-                        )
-                )
-        );
+        Weapon weapon = new Weapon();
+        weapon.setCreator(
+                new Corporation(dto.getWeapon().getCreator().getId(),
+                dto.getWeapon().getCreator().getName(),
+                new User(
+                        dto.getWeapon().getCreator().getOwner().getId(),
+                        dto.getWeapon().getCreator().getOwner().getLogin(),
+                        dto.getWeapon().getCreator().getOwner().getPassword(),
+                        Role.valueOf(dto.getWeapon().getCreator().getOwner().getRole())
+                )));
         weapon = weaponRepository.save(weapon);
 
         Planet planet = new Planet(
